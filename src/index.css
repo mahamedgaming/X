@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Readex Pro', 'Cairo', system-ui, sans-serif;
+    --font-sans: 'Cairo', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --accent: #a855f7;
+    --accent-rgb: 168, 85, 247;
+    --glass: rgba(255, 255, 255, 0.025);
+    --glass-card: rgba(255, 255, 255, 0.018);
+    --glass-border: rgba(255, 255, 255, 0.13);
+    --text: #ffffff;
+  }
+
+  [data-theme="blue"] {
+    --accent: #388bff;
+    --accent-rgb: 56, 139, 255;
+  }
+
+  [data-theme="pink"] {
+    --accent: #ed65c8;
+    --accent-rgb: 237, 101, 200;
+  }
+
+  [data-theme="green"] {
+    --accent: #31c48d;
+    --accent-rgb: 49, 196, 141;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #08080d;
+    color: var(--text);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.liquid-canvas {
+  background-color: #08080d;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(var(--accent-rgb), 0.16), transparent 45%),
+    radial-gradient(ellipse at 85% 85%, rgba(var(--accent-rgb), 0.10), transparent 40%);
+}
+
+.glass-surface {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.025),
+    0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--glass-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.025),
+    0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.glass-card::before,
+.glass-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.13),
+    transparent 30%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.035)
+  );
+}
+
+.glass-interactive {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.glass-interactive:hover {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    0 12px 35px rgba(var(--accent-rgb), 0.12);
+}
+
+.glass-active {
+  background: rgba(var(--accent-rgb), 0.13);
+  border-color: rgba(var(--accent-rgb), 0.4);
+}
+
+.glass-input {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.025),
+    0 12px 35px rgba(0, 0, 0, 0.15);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(var(--accent-rgb), 0.55);
+}
+
+.glass-dock {
+  position: fixed;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.012);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(45px) saturate(220%);
+  -webkit-backdrop-filter: blur(45px) saturate(220%);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.28),
+    inset 0 -2px 5px rgba(255, 255, 255, 0.025),
+    0 0 15px rgba(255, 255, 255, 0.025);
+}
+
+[data-glass="off"] .glass-surface,
+[data-glass="off"] .glass-card,
+[data-glass="off"] .glass-input,
+[data-glass="off"] .glass-dock {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background-color: #13131d;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

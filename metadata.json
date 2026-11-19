@@ -1,0 +1,6 @@
+{
+  "name": "سينما فليكس · CINEFLIX",
+  "description": "منصة بث الأفلام والمسلسلات السينمائية بتجربة مشاهدة غامرة وبجودة فائقة.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
